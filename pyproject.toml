@@ -4,11 +4,14 @@ version = "0.1.0"
 description = "Prototipo de gestión de reparaciones de un taller de bicicletas"
 requires-python = ">=3.12"
 dependencies = [
+    "fastapi>=0.143.1",
     "pydantic>=2.14.1",
+    "uvicorn>=0.54.0",
 ]
 
 [dependency-groups]
 dev = [
+    "httpx2>=2.13.1",
     "pytest>=8.0",
     "ruff>=0.6",
 ]
