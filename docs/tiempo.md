@@ -5,7 +5,7 @@ Límite: 3 horas.
 | Fase | Duración |
 |------|----------|
 | 0. Preparación | 15 min |
-| 1. Especificación | |
+| 1. Especificación | 20 min |
 | 2. Plan | |
 | 3. Implementación | |
 | 4. Verificación | |
