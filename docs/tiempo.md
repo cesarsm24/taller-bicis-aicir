@@ -9,6 +9,6 @@ Límite: 3 horas.
 | 2. Plan | 10 min |
 | 3. Implementación | 30 min |
 | 4. Verificación | 10 min |
-| 5. Revisión | |
+| 5. Revisión | 15 min |
 | 6. Entrega | |
 | **Total** | |
