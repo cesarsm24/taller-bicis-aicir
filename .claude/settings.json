@@ -1,0 +1,36 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(uv run pytest:*)",
+      "Bash(uv run ruff:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)"
+    ],
+    "ask": [
+      "Bash(git commit:*)",
+      "Bash(uv add:*)"
+    ],
+    "deny": [
+      "Bash(rm:*)",
+      "Bash(curl:*)",
+      "Bash(wget:*)",
+      "Bash(git push:*)",
+      "WebFetch",
+      "Read(~/.ssh/**)"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd \"$CLAUDE_PROJECT_DIR\" && uv run ruff check . --quiet && { uv run pytest -q >/tmp/taller-pytest.log 2>&1; rc=$?; [ $rc -eq 0 ] || [ $rc -eq 5 ]; } || { echo 'Hook: ruff o pytest fallan. Corrige antes de continuar.' >&2; tail -20 /tmp/taller-pytest.log >&2; exit 2; }"
+          }
+        ]
+      }
+    ]
+  }
+}
