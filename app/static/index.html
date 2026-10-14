@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Órdenes de reparación · Taller</title>
+    <link rel="stylesheet" href="/estilos.css" />
+    <script src="/app.js" defer></script>
+  </head>
+  <body>
+    <header class="cabecera">
+      <h1>Órdenes de reparación</h1>
+      <p>Prototipo con datos ficticios</p>
+    </header>
+
+    <main class="contenido">
+      <section class="panel" aria-labelledby="titulo-nueva">
+        <h2 id="titulo-nueva">Nueva orden</h2>
+        <form id="form-nueva" novalidate>
+          <div class="campo">
+            <label for="codigo_cliente">Código de cliente</label>
+            <input id="codigo_cliente" name="codigo_cliente" placeholder="CLI-0001"
+                   autocomplete="off" aria-describedby="error-codigo_cliente" />
+            <p id="error-codigo_cliente" class="error" role="alert"></p>
+          </div>
+
+          <div class="campo">
+            <label for="descripcion_bici">Bicicleta</label>
+            <input id="descripcion_bici" name="descripcion_bici" placeholder="Tipo, marca y color"
+                   autocomplete="off" aria-describedby="error-descripcion_bici" />
+            <p id="error-descripcion_bici" class="error" role="alert"></p>
+          </div>
+
+          <div class="campo">
+            <label for="problema">Problema comunicado</label>
+            <textarea id="problema" name="problema" rows="3"
+                      aria-describedby="error-problema"></textarea>
+            <p id="error-problema" class="error" role="alert"></p>
+          </div>
+
+          <p class="aviso">
+            No escribas nombres, teléfonos ni otros datos personales: el cliente se identifica
+            solo por su código.
+          </p>
+
+          <button type="submit" class="principal">Crear orden</button>
+        </form>
+      </section>
+
+      <section class="panel panel-lista" aria-labelledby="titulo-lista">
+        <h2 id="titulo-lista">Reparaciones</h2>
+        <p id="mensaje" class="mensaje" role="status" aria-live="polite"></p>
+        <table class="tabla">
+          <thead>
+            <tr>
+              <th scope="col">Nº</th>
+              <th scope="col">Cliente</th>
+              <th scope="col">Bicicleta</th>
+              <th scope="col">Problema</th>
+              <th scope="col">Estado</th>
+              <th scope="col">Cambiar estado</th>
+            </tr>
+          </thead>
+          <tbody id="cuerpo-tabla"></tbody>
+        </table>
+        <p id="vacio" class="vacio" hidden>No hay reparaciones registradas.</p>
+      </section>
+    </main>
+  </body>
+</html>

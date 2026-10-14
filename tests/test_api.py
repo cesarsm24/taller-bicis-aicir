@@ -173,3 +173,15 @@ def test_cambiar_estado_de_orden_inexistente(cliente: TestClient) -> None:
 
 def test_cambiar_estado_con_id_no_numerico(cliente: TestClient) -> None:
     assert cambiar(cliente, "abc", "Terminada").status_code == 422
+
+
+# --- T-05: interfaz web ---
+
+
+def test_la_pagina_se_sirve_en_la_raiz(cliente: TestClient) -> None:
+    respuesta = cliente.get("/")
+    assert respuesta.status_code == 200
+    assert "text/html" in respuesta.headers["content-type"]
+    assert "Órdenes de reparación" in respuesta.text
+    for recurso in ("/app.js", "/estilos.css"):
+        assert cliente.get(recurso).status_code == 200
