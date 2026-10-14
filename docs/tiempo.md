@@ -10,5 +10,5 @@ Límite: 3 horas.
 | 3. Implementación | 30 min |
 | 4. Verificación | 10 min |
 | 5. Revisión | 15 min |
-| 6. Entrega | |
-| **Total** | |
+| 6. Entrega | 15 min |
+| **Total** | **1 h 55 min** |
