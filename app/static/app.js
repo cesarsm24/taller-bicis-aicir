@@ -42,7 +42,13 @@ async function cargarOrdenes() {
     errorDeConexion();
     return;
   }
-  const ordenes = resultado.cuerpo ?? [];
+  // Si el servidor falla, se avisa sin vaciar la tabla: mostrar "No hay reparaciones"
+  // sería un mensaje falso.
+  if (!resultado.ok || !Array.isArray(resultado.cuerpo)) {
+    mostrarMensaje("No se han podido cargar las reparaciones. Inténtalo de nuevo.", "error");
+    return;
+  }
+  const ordenes = resultado.cuerpo;
   $("cuerpo-tabla").replaceChildren(...ordenes.map(filaOrden));
   $("vacio").hidden = ordenes.length > 0;
 }
@@ -148,6 +154,7 @@ async function crearOrden(evento) {
   const formulario = evento.currentTarget;
   const boton = formulario.querySelector("button[type=submit]");
   limpiarErrores(formulario);
+  mostrarMensaje("");
   boton.disabled = true;
 
   let resultado;

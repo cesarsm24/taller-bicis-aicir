@@ -105,3 +105,20 @@ def test_estado_valido(estado: str) -> None:
 def test_estado_no_valido(estado: str) -> None:
     with pytest.raises(ValidationError):
         CambioEstado(estado=estado)
+
+
+# Revisión D5: caracteres invisibles o de control en los textos libres
+
+
+@pytest.mark.parametrize("campo", ["descripcion_bici", "problema"])
+@pytest.mark.parametrize("valor", ["​​​", "\x00\x01\x02", "Bici​roja"])
+def test_texto_con_caracteres_invisibles_o_de_control_rechazado(campo: str, valor: str) -> None:
+    with pytest.raises(ValidationError):
+        nueva(**{campo: valor})
+
+
+def test_el_problema_admite_varias_lineas() -> None:
+    assert (
+        nueva(problema="Pinchazo.\nTambién frena poco.").problema
+        == "Pinchazo.\nTambién frena poco."
+    )

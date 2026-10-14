@@ -10,6 +10,9 @@ from app.modelos import CambioEstado, Orden, OrdenNueva
 
 router = APIRouter(prefix="/api/ordenes", tags=["órdenes"])
 
+# Mayor entero que admite SQLite. Un id mayor no puede existir y no debe llegar a la consulta.
+ID_MAXIMO = 2**63 - 1
+
 
 def obtener_conexion() -> Iterator[sqlite3.Connection]:
     conexion = conectar()
@@ -35,7 +38,9 @@ def crear_orden(datos: OrdenNueva, conexion: Conexion) -> Orden:
 @router.patch("/{id_orden}/estado")
 def cambiar_estado(id_orden: int, cambio: CambioEstado, conexion: Conexion) -> Orden:
     # Se permite cualquier estado, incluido el actual (RN-04): en ese caso no cambia nada.
-    orden = repositorio.cambiar_estado(conexion, id_orden, cambio.estado)
+    orden = None
+    if id_orden <= ID_MAXIMO:
+        orden = repositorio.cambiar_estado(conexion, id_orden, cambio.estado)
     if orden is None:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,

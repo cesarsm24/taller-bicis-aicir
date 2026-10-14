@@ -185,3 +185,13 @@ def test_la_pagina_se_sirve_en_la_raiz(cliente: TestClient) -> None:
     assert "Órdenes de reparación" in respuesta.text
     for recurso in ("/app.js", "/estilos.css"):
         assert cliente.get(recurso).status_code == 200
+
+
+# Revisión D2: un id entero que no corresponde a ninguna orden responde 404, aunque sea enorme
+
+
+@pytest.mark.parametrize("id_orden", [0, -1, 2**70])
+def test_cambiar_estado_con_id_fuera_de_rango(cliente: TestClient, id_orden: int) -> None:
+    respuesta = cambiar(cliente, id_orden, "Terminada")
+    assert respuesta.status_code == 404
+    assert respuesta.json() == {"detail": f"No existe ninguna orden con id {id_orden}."}
