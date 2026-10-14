@@ -3,7 +3,9 @@ name = "taller-bicis-aicir"
 version = "0.1.0"
 description = "Prototipo de gestión de reparaciones de un taller de bicicletas"
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "pydantic>=2.14.1",
+]
 
 [dependency-groups]
 dev = [
